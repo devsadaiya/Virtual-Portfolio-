@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dev Sadaiya — Finance × AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dev Sadaiya — MBA Finance & FinTech, building AI-driven tools for investment analysis, stock prediction and asset allocation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #efe9dc;
+    --surface: #fbf9f3;
+    --ink: #16202b;
+    --muted: #5b6570;
+    --line: rgba(22,32,43,0.14);
+    --line-strong: rgba(22,32,43,0.28);
+    --gold: #a67a17;
+    --gold-strong: #8a6412;
+    --teal: #1f6f63;
+    --shadow: 0 18px 40px -24px rgba(22,32,43,0.35);
+    --radius-sm: 3px;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0e1a2b;
+      --surface: #16263b;
+      --ink: #ede7d9;
+      --muted: #9fb0c0;
+      --line: rgba(237,231,217,0.14);
+      --line-strong: rgba(237,231,217,0.28);
+      --gold: #d8b34c;
+      --gold-strong: #eccb6c;
+      --teal: #4fbbaa;
+      --shadow: 0 18px 44px -22px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #0e1a2b;
+    --surface: #16263b;
+    --ink: #ede7d9;
+    --muted: #9fb0c0;
+    --line: rgba(237,231,217,0.14);
+    --line-strong: rgba(237,231,217,0.28);
+    --gold: #d8b34c;
+    --gold-strong: #eccb6c;
+    --teal: #4fbbaa;
+    --shadow: 0 18px 44px -22px rgba(0,0,0,0.55);
+  }
+
+  *{box-sizing:border-box;}
+  button{font:inherit;color:inherit;background:none;border:none;
+    cursor:pointer;padding:0;text-align:inherit;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  section{padding:110px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;letter-spacing:-0.01em;}
+  .eyebrow-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--gold-strong);
+    margin:0 0 14px;
+  }
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,38px);}
+  .section-head p{color:var(--muted);margin:14px 0 0;max-width:52ch;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:1080px;margin:0 auto;padding:0 28px;
+    height:68px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .mark{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:14px;text-decoration:none;
+  }
+  .mark .box{
+    width:32px;height:32px;border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-weight:600;font-size:15px;
+    color:var(--gold-strong);
+  }
+  .mark .name{color:var(--ink);}
+  nav.links{display:flex;gap:32px;list-style:none;margin:0;padding:0;}
+  nav.links button{
+    text-decoration:none;color:var(--muted);font-size:14.5px;
+    padding:4px 0;border-bottom:1px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  nav.links button:hover,nav.links button.active{color:var(--ink);border-color:var(--gold);}
+  .menu-btn{display:none;background:none;border:1px solid var(--line-strong);
+    width:38px;height:38px;color:var(--ink);cursor:pointer;}
+  .menu-btn svg{width:18px;height:18px;}
+
+  /* ---------- Hero ---------- */
+  #home{padding-top:170px;padding-bottom:90px;border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:end;}
+  .hero-eyebrow{
+    font-family:var(--mono);font-size:13px;color:var(--teal);
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .hero-eyebrow .dot{width:7px;height:7px;background:var(--teal);border-radius:50%;display:inline-block;}
+  .hero h1{font-size:clamp(40px,6vw,68px);line-height:1.03;}
+  .hero h1 em{font-style:italic;color:var(--gold-strong);}
+  .hero .lede{font-size:18px;color:var(--muted);max-width:46ch;margin:22px 0 0;}
+  .hero-actions{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--sans);font-size:14.5px;font-weight:500;
+    padding:13px 24px;text-decoration:none;display:inline-block;
+    border:1px solid var(--line-strong);transition:transform .18s ease, background .18s ease, color .18s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .hero-card{
+    background:var(--surface);border:1px solid var(--line);
+    padding:26px;box-shadow:var(--shadow);
+  }
+  .hero-card .row{
+    display:flex;justify-content:space-between;padding:10px 0;
+    border-bottom:1px solid var(--line);font-size:14px;
+  }
+  .hero-card .row:last-child{border-bottom:none;}
+  .hero-card .row .label{color:var(--muted);}
+  .hero-card .row .val{font-family:var(--mono);}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;}
+  .about-grid p{margin:0 0 16px;color:var(--ink);max-width:60ch;}
+  .about-grid .muted-note{color:var(--muted);font-size:14.5px;}
+  .ledger{border-top:1px solid var(--line-strong);}
+  .ledger .line{
+    display:flex;justify-content:space-between;gap:16px;
+    padding:14px 0;border-bottom:1px solid var(--line);font-size:14.5px;
+  }
+  .ledger .line .k{color:var(--muted);}
+  .ledger .line .v{font-family:var(--mono);text-align:right;}
+
+  /* ---------- Projects ---------- */
+  .project{
+    display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:start;
+    padding:30px 0;border-bottom:1px solid var(--line);
+  }
+  .project:first-of-type{border-top:1px solid var(--line-strong);}
+  .project .pnum{font-family:var(--mono);color:var(--gold-strong);font-size:14px;padding-top:4px;}
+  .project h3{font-size:22px;margin-bottom:8px;}
+  .project p{color:var(--muted);margin:0 0 14px;max-width:62ch;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    border:1px solid var(--line-strong);padding:4px 9px;
+  }
+  .proj-link{
+    display:flex;align-items:center;gap:8px;text-decoration:none;
+    font-size:14px;color:var(--ink);border-bottom:1px solid var(--gold);
+    padding-bottom:2px;white-space:nowrap;height:fit-content;
+    transition:color .18s ease, border-color .18s ease;
+  }
+  .proj-link svg{width:13px;height:13px;flex-shrink:0;}
+  .proj-link:hover{color:var(--gold-strong);border-color:var(--gold-strong);}
+
+  /* ---------- Skills ---------- */
+  .skill-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:44px 56px;}
+  .skill-group h3{font-size:15px;font-weight:500;font-family:var(--sans);
+    color:var(--muted);margin-bottom:16px;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:9px;}
+  .chip{
+    font-size:13.5px;padding:7px 13px;border:1px solid var(--line-strong);
+    background:var(--surface);
+  }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{border-left:1px solid var(--line-strong);margin-left:6px;}
+  .tl-item{position:relative;padding:0 0 46px 34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-5px;top:4px;
+    width:9px;height:9px;background:var(--gold);border-radius:50%;
+  }
+  .tl-date{font-family:var(--mono);font-size:13px;color:var(--teal);margin-bottom:6px;}
+  .tl-item h3{font-size:19px;margin-bottom:2px;}
+  .tl-item .org{color:var(--muted);font-size:14.5px;margin-bottom:12px;}
+  .tl-item ul{margin:0;padding-left:18px;color:var(--ink);}
+  .tl-item li{margin-bottom:6px;font-size:15px;}
+
+  /* ---------- Education ---------- */
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line-strong);border:1px solid var(--line-strong);}
+  .edu-card{background:var(--bg);padding:28px 24px;}
+  .edu-card .deg{font-size:17px;font-family:var(--serif);font-weight:600;margin-bottom:8px;}
+  .edu-card .inst{color:var(--muted);font-size:14px;margin-bottom:18px;}
+  .edu-card .meta{display:flex;justify-content:space-between;font-family:var(--mono);
+    font-size:12.5px;border-top:1px solid var(--line);padding-top:12px;}
+
+  /* ---------- Certs ---------- */
+  .cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .cert-grid h3{font-size:15px;font-weight:500;color:var(--muted);margin-bottom:16px;}
+  .cert-grid ul{margin:0;padding:0;list-style:none;}
+  .cert-grid li{
+    padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;
+  }
+  .cert-grid li:last-child{border-bottom:none;}
+
+  /* ---------- Contact ---------- */
+  #contact{padding-bottom:70px;}
+  .contact-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:start;}
+  .contact-grid h2{font-size:clamp(30px,4vw,44px);max-width:14ch;}
+  .contact-list{list-style:none;margin:28px 0 0;padding:0;}
+  .contact-list li{padding:14px 0;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;font-size:15px;}
+  .contact-list li:last-child{border-bottom:1px solid var(--line);}
+  .contact-list a{text-decoration:none;border-bottom:1px solid var(--gold);}
+  .contact-list .k{color:var(--muted);font-family:var(--mono);font-size:13px;}
+  footer{padding:26px 0;text-align:center;color:var(--muted);font-size:13px;}
+
+  @media (max-width:820px){
+    .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
+    .skill-groups{grid-template-columns:1fr;}
+    .edu-grid{grid-template-columns:1fr;}
+    .cert-grid{grid-template-columns:1fr;}
+    .project{grid-template-columns:auto 1fr;}
+    .proj-link{grid-column:1 / -1;}
+    nav.links{
+      position:fixed;top:68px;left:0;right:0;background:var(--bg);
+      flex-direction:column;gap:0;border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .25s ease;
+    }
+    nav.links.open{max-height:320px;}
+    nav.links button{padding:16px 28px;border-bottom:1px solid var(--line);width:100%;}
+    .menu-btn{display:block;}
+    section{padding:76px 0;}
+  }
+
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s ease forwards;}
+  .reveal:nth-child(2){animation-delay:.08s;}
+  .reveal:nth-child(3){animation-delay:.16s;}
+  .reveal:nth-child(4){animation-delay:.24s;}
+  @keyframes rise{to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <button data-scroll="home" class="mark"><span class="box">DS</span><span class="name">Dev Sadaiya</span></button>
+    <nav class="links" id="navLinks">
+      <button data-scroll="home">Home</button>
+      <button data-scroll="about">About</button>
+      <button data-scroll="projects">Projects</button>
+      <button data-scroll="skills">Skills</button>
+      <button data-scroll="experience">Experience</button>
+      <button data-scroll="education">Education</button>
+      <button data-scroll="contact">Contact</button>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<section id="home">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero reveal">
+        <div class="hero-eyebrow"><span class="dot"></span>Bangalore, India — open to solve problems &amp; create something impactful</div>
+        <h1>Reading markets<br>with <em>models</em>, not<br>just multiples.</h1>
+        <p class="lede">I'm an Finance &amp; FinTech enthusiast who builds machine
+          learning tools for investment analysis, stock prediction, portfolio
+          analytics and asset allocation, grounded in real financial theory,
+          not just code.</p>
+        <div class="hero-actions">
+          <button data-scroll="projects" class="btn btn-primary">See the projects</button>
+          <button data-scroll="contact" class="btn btn-ghost">Get in touch</button>
+        </div>
+      </div>
+      <div class="hero-card reveal">
+        <div class="row"><span class="label">Focus</span><span class="val">Finance × FinTech × AI/ML</span></div>
+        <div class="row"><span class="label">Studying at</span><span class="val">Alliance University</span></div>
+        <div class="row"><span class="label">MBA CGPA</span><span class="val">8.6 / 10</span></div>
+        <div class="row"><span class="label">PGD, AI &amp; ML</span><span class="val">9.0 / 10</span></div>
+        <div class="row"><span class="label">Based in</span><span class="val">Bangalore, IN</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow-num">01 — About</p>
+        <h2 style="font-size:clamp(26px,3.2vw,36px);margin-bottom:20px;">
+          Finance background, machine-learning habit.
+        </h2>
+        <p>I came into finance through numbers, financial modelling, security
+          analysis, corporate finance and then picked up a Post Graduate
+          Diploma in AI &amp; ML because I kept wanting the models to look
+          forward, not just back. Most of my work since has sat at that
+          overlap: using deep learning and statistics to answer practical
+          investment questions.</p>
+        <p>At Accrual Intelligence Manuals, I supported portfolio analysis and
+          investment evaluation while getting hands-on exposure to business
+          development and client work. Before that, I ran end-to-end
+          recruitment operations at VISH Recruitment Services, which taught
+          me a lot about stakeholder management that still shows up in how I
+          scope and present projects today.</p>
+        <p class="muted-note">An MBA in Finance &amp;
+          FinTech, Looking forward to solve financial problems with new gen AI</p>
+      </div>
+      <div class="ledger">
+        <div class="line"><span class="k">MBA, Finance &amp; FinTech</span><span class="v">Alliance University · 8.6</span></div>
+        <div class="line"><span class="k">PG Diploma, AI &amp; ML</span><span class="v">IISD · 9.0</span></div>
+        <div class="line"><span class="k">BBA, Financial Services</span><span class="v">Ganpat University · 6.84</span></div>
+        <div class="line"><span class="k">Management Trainee</span><span class="v">AIM · 2026</span></div>
+        <div class="line"><span class="k">Talent Acquisition Exec.</span><span class="v">VISH · 2022–23</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow-num">02 — Projects</p>
+      <h2>Live, working prototypes.</h2>
+      <p>Three finance problems, each tackled with a different modelling
+        approach. Every link below opens the running application.</p>
+    </div>
+
+    <div class="project">
+      <span class="pnum">01</span>
+      <div>
+        <h3>AI-Powered Stock Prediction Platform</h3>
+        <p>An LSTM-based deep learning model that forecasts stock price
+          movement. Evaluated with R-squared and directional accuracy,
+          landing at roughly a 2% average prediction error.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">LSTM</span>
+          <span class="tag">Deep Learning</span><span class="tag">Time Series</span></div>
+      </div>
+      <a class="proj-link" href="https://devsadaiya.github.io/stock_predictor/" target="_blank" rel="noopener">
+        Open live demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+
+    <div class="project">
+      <span class="pnum">02</span>
+      <div>
+        <h3>Quantum Portfolio Engine</h3>
+        <p>A portfolio analytics workspace for tracking performance, risk and
+          allocation across a book of holdings — built to make it easier to
+          see how a portfolio is actually behaving, not just what it's
+          holding.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span>
+          <span class="tag">Portfolio Analytics</span></div>
+      </div>
+      <a class="proj-link" href="https://quantum-portfolio-engine-1010.streamlit.app/" target="_blank" rel="noopener">
+        Open live demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+
+    <div class="project">
+      <span class="pnum">03</span>
+      <div>
+        <h3>AI Asset Allocator</h3>
+        <p>Analyses market movement across indices and combines it with an
+          investor's risk profile to generate asset allocation ideas —
+          turning a standard risk questionnaire into an actual proposed
+          mix.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span>
+          <span class="tag">Asset Allocation</span></div>
+      </div>
+      <a class="proj-link" href="https://ai-asset-allocator.streamlit.app/" target="_blank" rel="noopener">
+        Open live demo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow-num">03 — Skills</p>
+      <h2>What I actually work with.</h2>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Finance</h3>
+        <div class="chip-row">
+          <span class="chip">Financial Modelling</span>
+          <span class="chip">Investment Analysis</span>
+          <span class="chip">Portfolio Management</span>
+          <span class="chip">Security Analysis</span>
+          <span class="chip">Financial Statement Analysis</span>
+          <span class="chip">Corporate Finance</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Analytics &amp; AI</h3>
+        <div class="chip-row">
+          <span class="chip">Machine Learning</span>
+          <span class="chip">Deep Learning</span>
+          <span class="chip">Neural Networks</span>
+          <span class="chip">LSTM</span>
+          <span class="chip">Regression Analysis</span>
+          <span class="chip">Predictive Analytics</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools</h3>
+        <div class="chip-row">
+          <span class="chip">Python</span>
+          <span class="chip">Power BI</span>
+          <span class="chip">Microsoft Office</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Professional</h3>
+        <div class="chip-row">
+          <span class="chip">Financial Research</span>
+          <span class="chip">Stakeholder Management</span>
+          <span class="chip">Business Development</span>
+          <span class="chip">Client Management</span>
+          <span class="chip">Leadership</span>
+          <span class="chip">Problem Solving</span>
+          <span class="chip">Decision Making</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow-num">04 — Experience</p>
+      <h2>Where I've worked.</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">Apr 2026 – Jun 2026</div>
+        <h3>Management Trainee</h3>
+        <div class="org">Accrual Intelligence Manuals (AIM)</div>
+        <ul>
+          <li>Supported portfolio analysis and evaluation of investment options.</li>
+          <li>Contributed to business development and client management activities.</li>
+          <li>Gained cross-functional exposure to HR and marketing operations.</li>
+          <li>Recognized with awards for Best Presentation and Most Interactive Intern.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 2022 – Mar 2023</div>
+        <h3>Talent Acquisition Executive</h3>
+        <div class="org">VISH Recruitment Services</div>
+        <ul>
+          <li>Managed end-to-end recruitment operations across sourcing, coordination and stakeholder communication.</li>
+          <li>Coordinated with multiple stakeholders and supported client requirements to improve client satisfaction.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow-num">05 — Education</p>
+      <h2>Academic record.</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="deg">MBA, Finance &amp; FinTech</div>
+        <div class="inst">Alliance University, Bangalore</div>
+        <div class="meta"><span>Expected 2027</span><span>CGPA 8.6/10</span></div>
+      </div>
+      <div class="edu-card">
+        <div class="deg">PG Diploma, AI &amp; ML</div>
+        <div class="inst">Indian Institute of Skill Development</div>
+        <div class="meta"><span>2025</span><span>CGPA 9.0/10</span></div>
+      </div>
+      <div class="edu-card">
+        <div class="deg">BBA, Financial Services</div>
+        <div class="inst">Ganpat University, Gujarat</div>
+        <div class="meta"><span>2024</span><span>CGPA 6.84/10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow-num">06 — Recognition</p>
+      <h2>Certifications &amp; achievements.</h2>
+    </div>
+    <div class="cert-grid">
+      <div>
+        <h3>Certifications</h3>
+        <ul>
+          <li>NISM — Financial Institutions &amp; Instruments</li>
+          <li>Advanced Power BI — Forage (TCS)</li>
+          <li>AI Fundamentals — Great Learning</li>
+          <li>AI &amp; Data Science — Institute of Industrial Development</li>
+          <li>Management Etiquette — Barclays</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Achievements &amp; leadership</h3>
+        <ul>
+          <li>Best in the Class, Alliance University</li>
+          <li>Best Final Year Project, Ganpat University</li>
+          <li>Letter of Recommendation, Dean of VMP College</li>
+          <li>Research Committee — Lead</li>
+          <li>SDG Project Lead — Clean Energy for Street Vendors, Bengaluru</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow-num">07 — Contact</p>
+        <h2>Let's talk finance, models, or both.</h2>
+        <p style="color:var(--muted);margin-top:16px;max-width:44ch;">
+          Open to internship and full-time opportunities across investment
+          analysis, portfolio management and applied AI in finance.
+        </p>
+      </div>
+      <ul class="contact-list">
+        <li><span class="k">EMAIL</span><a href="mailto:sadaiyadev@gmail.com">sadaiyadev@gmail.com</a></li>
+        <li><span class="k">PHONE</span><span>+91 70434 58301</span></li>
+        <li><span class="k">LINKEDIN</span><a href="https://www.linkedin.com/in/dev-sadaiya-963b53219/" target="_blank" rel="noopener">dev-sadaiya</a></li>
+        <li><span class="k">GITHUB</span><a href="https://github.com/devsadaiya" target="_blank" rel="noopener">devsadaiya</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>Dev Sadaiya · Bangalore, India</footer>
+
+<script>
+  var menuBtn = document.getElementById('menuBtn');
+  var navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+
+  // Handle every internal nav/CTA control ourselves via scrollIntoView —
+  // these are <button> elements with no href, so nothing can be
+  // mistaken for a page navigation.
+  document.querySelectorAll('[data-scroll]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var target = document.getElementById(el.getAttribute('data-scroll'));
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      navLinks.classList.remove('open');
+    });
+  });
+
+  var sections = document.querySelectorAll('section[id]');
+  var setActive = function(){
+    var pos = window.scrollY + 120;
+    sections.forEach(function(sec){
+      var top = sec.offsetTop, bottom = top + sec.offsetHeight;
+      var link = document.querySelector('nav.links [data-scroll="' + sec.id + '"]');
+      if(!link) return;
+      if(pos >= top && pos < bottom){ link.classList.add('active'); }
+      else { link.classList.remove('active'); }
+    });
+  };
+  window.addEventListener('scroll', setActive);
+  setActive();
+</script>
+</body>
+</html>
