@@ -92,7 +92,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
     <button data-p="leadership" role="tab">Leadership</button>
   </div>
 </nav>
-
+ 
 <main>
 <!-- PROFILE -->
 <section class="page on" id="profile">
@@ -114,7 +114,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
     </div>
   </div>
 </section>
-
+ 
 <!-- EDUCATION -->
 <section class="page" id="education">
   <h1>Education</h1>
@@ -125,7 +125,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
     <div class="gl box" style="--c:#f472b6"><div class="when">April 2024</div><h2>BBA, Financial Services</h2><div class="org">Ganpat University, Gujarat</div><div class="big">6.84<small style="font-size:.9rem;color:var(--mute)"> / 10 CGPA</small></div></div>
   </div>
 </section>
-
+ 
 <!-- EXPERIENCE -->
 <section class="page" id="experience">
   <h1>Experience</h1>
@@ -137,7 +137,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
       <ul><li>Managed end-to-end recruitment operations across sourcing, coordination and stakeholder communication.</li><li>Coordinated with multiple stakeholders and supported client requirements to improve client satisfaction.</li><li>Managed and maintained 10+ clients and delivered culturally fit candidates.</li></ul></div>
   </div>
 </section>
-
+ 
 <!-- PROJECTS -->
 <section class="page" id="projects">
   <h1>Projects</h1>
@@ -145,7 +145,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
   <div class="cols cards" id="cards"></div>
   <p class="foot">All projects open <a href="https://devsadaiya.github.io/project-links/" target="_blank" rel="noopener">devsadaiya.github.io/project-links</a>.</p>
 </section>
-
+ 
 <!-- SKILLS -->
 <section class="page" id="skills">
   <h1>Skills</h1>
@@ -159,7 +159,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
   <div class="gl box" style="--c:#34d399;margin-top:24px"><h2>Certifications</h2>
     <div class="chips"><span>NISM &ndash; Financial Institutions &amp; Instruments</span><span>Advanced Power BI &ndash; Forage (TCS)</span><span>AI Fundamentals &ndash; Great Learning</span><span>AI &amp; Data Science &ndash; Institute of Industrial Development</span><span>Management Etiquette &ndash; Barclays</span><span>Data Science Job Simulation &ndash; British Airways</span></div></div>
 </section>
-
+ 
 <!-- RECOMMENDATIONS -->
 <section class="page" id="recommendations">
   <h1>Recommendations</h1>
@@ -171,7 +171,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
     <div class="gl box" style="--c:#fbbf24"><div class="when">More</div><h2>Read on LinkedIn</h2><div class="org">Peer and mentor recommendations</div><p style="font-size:.9rem;line-height:1.6;color:#d5dbea;margin-bottom:14px">See recommendations written by colleagues and mentors on my profile.</p><a class="btn" href="https://www.linkedin.com/in/dev-sadaiya-963b53219/" target="_blank" rel="noopener">Open LinkedIn</a></div>
   </div>
 </section>
-
+ 
 <!-- LEADERSHIP -->
 <section class="page" id="leadership">
   <h1>Leadership &amp; Achievements</h1>
@@ -188,7 +188,7 @@ h1{font:700 clamp(2.1rem,5vw,3.6rem)/1.05 'Space Grotesk',sans-serif;letter-spac
   </div>
 </section>
 </main>
-
+ 
 <script>
 const LINK='https://devsadaiya.github.io/project-links/';
 const P=[
@@ -200,7 +200,7 @@ const P=[
  {c:'#60a5fa',t:'Behavioral Finance Study',y:'2023',tags:['Regression','Statistics','Team lead'],b:['Led a 6-member team studying behavioural factors affecting stock performance among Indian traders.','Applied regression analysis and statistical tools to test outcomes and generate insights.'],i:'<path d="M4 20h16M7 20V10M12 20V4M17 20v-7"/>'}
 ];
 document.getElementById('cards').innerHTML=P.map(p=>`<a class="card" style="--c:${p.c}" href="${LINK}" target="_blank" rel="noopener"><div class="glow"></div><div class="gl"><div class="front"><div><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${p.i}</svg></div><h2>${p.t}</h2><div class="chips" style="margin-top:0">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div></div><div class="when">${p.y} <span class="hint">&middot; hover for details</span></div></div><div class="detail"><div><h3>${p.t}</h3><ul>${p.b.map(x=>`<li>${x}</li>`).join('')}</ul></div><span class="go">Open project &#8599;</span></div></div></a>`).join('');
-
+ 
 // page switching
 const tabs=document.querySelectorAll('.tabs button'),pages=document.querySelectorAll('.page');
 function show(id){if(!document.getElementById(id))id='profile';tabs.forEach(t=>t.classList.toggle('on',t.dataset.p===id));pages.forEach(p=>p.classList.toggle('on',p.id===id));document.title='Dev Sadaiya | '+id.charAt(0).toUpperCase()+id.slice(1);window.scrollTo(0,0);const on=document.querySelector('.tabs .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'})}
@@ -216,3 +216,4 @@ document.querySelectorAll('.card').forEach(c=>{
 </script>
 </body>
 </html>
+ 
